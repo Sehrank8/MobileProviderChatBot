@@ -6,8 +6,10 @@ import Together from "together-ai";
 import dotenv from "dotenv";
 
 const serviceAccount = JSON.parse(
-    fs.readFileSync('./firebase-key.json', 'utf8')
+    fs.readFileSync('/etc/secrets/firebase-key.json', 'utf8')
 );
+
+
 
 dotenv.config();
 
@@ -138,14 +140,17 @@ db.collection("messages").onSnapshot(snapshot => {
     });
 });
 
+
 async function detectIntent(userMessage) {
-    const response = await together.chat.completions.create({
-        model: "mistralai/Mistral-7B-Instruct-v0.1",
-        temperature: 0,
-        messages: [
-            {
-                role: "system",
-                content: `You are an API assistant. Given a user's message, respond with **only a raw JSON object**, without any commentary, reasoning, or tags like <think>. Your output must be **only valid JSON** in this format:
+    const response = await axios.post(
+        "https://api.together.xyz/v1/chat/completions",
+        {
+            model: "mistralai/Mistral-7B-Instruct-v0.1",
+            temperature: 0,
+            messages: [
+                {
+                    role: "system",
+                    content: `You are an API assistant. Given a user's message, respond with **only a raw JSON object**, without any commentary, reasoning, or tags like <think>. Your output must be **only valid JSON** in this format:
 For billing actions:
 {
   "intent": "query_bill" | "query_bill_detailed" | "pay_bill",
@@ -163,15 +168,22 @@ You MUST:
 - NOT comment or reason your response.
 - NOT guess missing values.
 - Always return something in valid JSON format.`
-            },
-            { role: "user", content: userMessage }
-        ]
-    });
+                },
+                { role: "user", content: userMessage }
+            ]
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${process.env.TOGETHER_API_KEY}`,
+                "Content-Type": "application/json"
+            }
+        }
+    );
 
     try {
-        return JSON.parse(response.choices[0].message.content);
+        return JSON.parse(response.data.choices[0].message.content);
     } catch {
-        console.error("TogetherAI returned invalid JSON:", response.choices[0].message.content);
+        console.error("TogetherAI returned invalid JSON:", response.data.choices[0].message.content);
         return { intent: "unknown" };
     }
 }
