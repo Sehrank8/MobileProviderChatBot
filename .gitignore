@@ -2,3 +2,7 @@
 node_modules
 obj
 .vscode
+firebase-key.json
+eslint.config.js
+CHANGELOG.md
+.env

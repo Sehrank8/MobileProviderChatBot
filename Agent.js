@@ -1,9 +1,13 @@
-const { initializeApp, cert } = require("firebase-admin/app");
-const { getFirestore } = require("firebase-admin/firestore");
-const axios = require("axios");
-const Together = require("together-ai");
-const dotenv = require("dotenv");
-const serviceAccount = require("./firebase-key.json");
+import fs from 'fs';
+import { initializeApp, cert } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
+import axios from "axios";
+import Together from "together-ai";
+import dotenv from "dotenv";
+
+const serviceAccount = JSON.parse(
+    fs.readFileSync('./firebase-key.json', 'utf8')
+);
 
 dotenv.config();
 
