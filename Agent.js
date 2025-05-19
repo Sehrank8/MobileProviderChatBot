@@ -3,7 +3,7 @@ import { initializeApp, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import axios from "axios";
 import dotenv from "dotenv";
-
+import http from "http";
 const serviceAccount = JSON.parse(
     fs.readFileSync('/etc/secrets/firebase-key.json', 'utf8')
 );
@@ -208,3 +208,16 @@ function getMonthName(monthNum) {
     ];
     return months[monthNum - 1] || "Unknown";
 }
+
+
+
+// Required by Render to detect an open port otherwise it stops my bot
+const PORT = process.env.PORT || 3000;
+
+http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end("Chatbot is running\n");
+}).listen(PORT, () => {
+    console.log(`HTTP server running on port ${PORT}`);
+});
+
