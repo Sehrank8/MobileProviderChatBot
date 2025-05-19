@@ -18,7 +18,6 @@ initializeApp({
 
 const db = getFirestore();
 
-const together = new Together({ apiKey: process.env.TOGETHER_API_KEY });
 
 const baseUrl = `${process.env.SITE_URL}/mobileapi/v1/Billing`;
 
