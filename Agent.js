@@ -2,7 +2,6 @@ import fs from 'fs';
 import { initializeApp, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import axios from "axios";
-import Together from "together-ai";
 import dotenv from "dotenv";
 
 const serviceAccount = JSON.parse(
