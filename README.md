@@ -4,7 +4,7 @@
 The **MobileProviderChatBot** is an AI-powered assistant integrated with Firebase and Together.ai, capable of understanding user queries related to mobile billing and responding appropriately through a real-time messaging system.
 
 ### You can test it here: On [Render](https://mobileproviderchatapp.onrender.com)
-
+### Video link: [VIDEO](https://drive.google.com/drive/folders/1iURph3ZgeGjW0-FUfo7s3M3Ar8QlmeFc?usp=sharing)
 ## 🔗 Related Projects
 
 - **API Gateway**: [MobileProviderGateway](https://github.com/Sehrank8/MobileProviderGateway)
