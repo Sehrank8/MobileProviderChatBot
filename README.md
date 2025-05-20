@@ -100,6 +100,3 @@ The bot uses Together.ai to detect intents in the following format:
 
 The bot listens to changes in the `messages` collection and responds when a new user message is added with `sender: "user"` and `processed: false`.
 
-## 📄 License
-
-This project is licensed under the MIT License.
